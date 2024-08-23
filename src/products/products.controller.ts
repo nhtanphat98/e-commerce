@@ -11,6 +11,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { SearchFilter } from './dto/searchFilter.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -22,11 +23,27 @@ export class ProductsController {
   }
 
   @Get()
-  findAll(
-    @Query('pageNumber') pageNumber = 1,
-    @Query('pageSize') pageSize = 10,
+  FindAll(
+    @Query('pageNumber') pageNumber: number,
+    @Query('pageSize') pageSize: number,
+    @Query('name') name?: string,
+    @Query('status') status?: string,
+    @Query('rating') rating?: string,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxPrice') maxPrice?: number,
+    @Query('category_id') category_id?: string,
   ) {
-    return this.productsService.findAll({ pageNumber, pageSize });
+    // Tạo đối tượng searchFilter từ các tham số query
+    const searchFilter: SearchFilter = {
+      name: name,
+      status: status,
+      rating: rating ? parseFloat(rating) : undefined,
+      rangePrice: (minPrice !== undefined && maxPrice !== undefined) ? [minPrice, maxPrice] : undefined,
+      category_id: category_id ? parseInt(category_id) : undefined,
+    };
+
+    // Gọi phương thức tìm kiếm trong service với các tham số
+    return this.productsService.findAll({ pageNumber, pageSize, searchFilter });
   }
 
   @Get(':id')

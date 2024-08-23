@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/categories/entities/category.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'product' })
 export class Product {
@@ -11,6 +12,8 @@ export class Product {
   @Column()
   quantity: number;
   @Column()
+  category_id: number;
+  @Column()
   price: number;
   @Column({ nullable: true })
   image: string;
@@ -20,4 +23,7 @@ export class Product {
   rating: number;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
+
+  @ManyToOne(() => Category, (category) => category.products)
+  category: Category;
 }
