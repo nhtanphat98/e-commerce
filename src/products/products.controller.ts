@@ -38,7 +38,10 @@ export class ProductsController {
       name: name,
       status: status,
       rating: rating ? parseFloat(rating) : undefined,
-      rangePrice: (minPrice !== undefined && maxPrice !== undefined) ? [minPrice, maxPrice] : undefined,
+      rangePrice:
+        minPrice !== undefined && maxPrice !== undefined
+          ? [minPrice, maxPrice]
+          : undefined,
       category_id: category_id ? parseInt(category_id) : undefined,
     };
 

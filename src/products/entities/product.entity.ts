@@ -11,7 +11,7 @@ export class Product {
   description: string;
   @Column()
   quantity: number;
-  @Column()
+  @Column({ nullable: true })
   category_id: number;
   @Column()
   price: number;

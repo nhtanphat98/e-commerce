@@ -5,8 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ProductsModule } from './products/products.module';
-import { OrderProductModule } from './order-product/order-product.module';
 import { CategoriesModule } from './categories/categories.module';
+import { OrderModule } from './order/order.module';
+import { UserModule } from './user/user.module';
+import { OrderDetailModule } from './order-detail/order-detail.module';
+import { CartModule } from './cart/cart.module';
+import { CartDetailModule } from './cart-detail/cart-detail.module';
 
 @Module({
   imports: [
@@ -26,8 +30,12 @@ import { CategoriesModule } from './categories/categories.module';
       }),
     }),
     ProductsModule,
-    OrderProductModule,
     CategoriesModule,
+    OrderModule,
+    UserModule,
+    OrderDetailModule,
+    CartModule,
+    CartDetailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,7 +12,7 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) { }
+  ) {}
 
   async create(createProductDto: CreateProductDto) {
     const product = this.productRepository.create(createProductDto);
@@ -28,12 +28,13 @@ export class ProductsService {
     pageSize: number;
     searchFilter: SearchFilter;
   }): Promise<ResponseProduct> {
-
     //using query builder
     const queryBuilder = this.productRepository.createQueryBuilder('product');
     // Áp dụng các điều kiện lọc từ searchFilter
     if (searchFilter.name) {
-      queryBuilder.andWhere('product.name LIKE :name', { name: `%${searchFilter.name}%` });
+      queryBuilder.andWhere('product.name LIKE :name', {
+        name: `%${searchFilter.name}%`,
+      });
     }
     if (searchFilter.rangePrice) {
       queryBuilder.andWhere('product.price BETWEEN :minPrice AND :maxPrice', {
@@ -42,13 +43,19 @@ export class ProductsService {
       });
     }
     if (searchFilter.status) {
-      queryBuilder.andWhere('product.status = :status', { status: `${searchFilter.status}` });
+      queryBuilder.andWhere('product.status = :status', {
+        status: `${searchFilter.status}`,
+      });
     }
     if (searchFilter.rating) {
-      queryBuilder.andWhere('product.rating = :rating', { rating: `${searchFilter.rating}` });
+      queryBuilder.andWhere('product.rating = :rating', {
+        rating: `${searchFilter.rating}`,
+      });
     }
     if (searchFilter.category_id) {
-      queryBuilder.andWhere('product.category_id = :category_id', { category_id: `${searchFilter.category_id}` });
+      queryBuilder.andWhere('product.category_id = :category_id', {
+        category_id: `${searchFilter.category_id}`,
+      });
     }
     const [results, total] = await queryBuilder
       .skip((pageNumber - 1) * pageSize)
