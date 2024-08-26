@@ -13,7 +13,7 @@ export class OrderService {
     private orderRepository: Repository<Order>,
     @InjectRepository(OrderDetail)
     private orderDetailRepository: Repository<OrderDetail>,
-  ) {}
+  ) { }
   async create(createOrderRequestDto: CreateOrderRequestDto) {
     const order = await this.orderRepository.save(
       createOrderRequestDto.createOrderDto,
@@ -28,11 +28,11 @@ export class OrderService {
 
   async findAllByUserId(user_id: number) {
     const queryBuilder = await this.orderRepository.createQueryBuilder('order');
-    queryBuilder.leftJoinAndSelect('order.user', 'user');
+    queryBuilder.leftJoinAndSelect('order.orderDetails', 'order-detail');
     const orders = queryBuilder
-      .where('order.user_id = :user_id', { user_id: user_id })
+      .where('order.userId = :user_id', { user_id: user_id })
       .getMany();
-    return orders;
+    return orders
   }
 
   async findOne(id: number) {

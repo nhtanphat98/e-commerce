@@ -1,9 +1,10 @@
-import { Cart } from 'src/cart/entities/cart.entity';
+
 import { Order } from 'src/order/entities/order.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,12 +16,12 @@ export class OrderDetail {
   @Column({ nullable: true })
   product_id: number;
   @Column()
-  order_id: number;
+  orderId: number;
   @Column()
   quantity: number;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
-  @OneToOne(() => Order, (order) => order.orderDetail, { cascade: true })
-  @JoinColumn() // Sử dụng @JoinColumn ở phía giữ khóa ngoại
+  @ManyToOne(() => Order, (order) => order.orderDetails, { cascade: true })
+  @JoinColumn({name: 'orderId'})
   order: Order;
 }

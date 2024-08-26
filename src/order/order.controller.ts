@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -20,15 +21,15 @@ export class OrderController {
     return await this.orderService.create(createOrderRequestDto);
   }
 
-  @Get(':userId')
-  async findAllByUserId(@Param('userId') userId: number) {
+  @Get()
+  async findAllByUserId(@Query('userId') userId: number) {
     return await this.orderService.findAllByUserId(userId);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.orderService.findOne(+id);
-  }
+  // @Get(':id')
+  // async findOne(@Param('id') id: string) {
+  //   return await this.orderService.findOne(+id);
+  // }
 
   @Patch(':id')
   async update(

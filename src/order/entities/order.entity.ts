@@ -3,7 +3,9 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,11 +15,13 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  user_id: number;
+  userId: number;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
   @ManyToOne(() => User, (user) => user.orders)
+  @JoinColumn({name: 'userId'})
   user: User;
-  @OneToOne(() => OrderDetail, (orderDetail) => orderDetail.order)
-  orderDetail: OrderDetail;
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
+  
+  orderDetails: OrderDetail;
 }
