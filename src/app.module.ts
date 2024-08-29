@@ -24,7 +24,7 @@ import { CartDetailModule } from './cart-detail/cart-detail.module';
         port: 5432,
         username: 'admin',
         password: 'bi.,123456',
-        database: configService.get('EC'),
+        database: 'E-commerce',
         entities: [join(process.cwd(), 'dist/**/*.entity{.ts,.js}')],
         synchronize: true,
       }),
