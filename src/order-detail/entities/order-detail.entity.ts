@@ -14,7 +14,7 @@ export class OrderDetail {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ nullable: true })
-  product_id: number;
+  productId: number;
   @Column()
   orderId: number;
   @Column()

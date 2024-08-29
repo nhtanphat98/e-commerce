@@ -13,7 +13,7 @@ export class Cart {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  user_id: number;
+  userId: number;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
   @ManyToOne(() => User, (user) => user.carts)

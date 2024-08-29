@@ -6,7 +6,6 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -22,6 +21,5 @@ export class Order {
   @JoinColumn({name: 'userId'})
   user: User;
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
-  
   orderDetails: OrderDetail;
 }

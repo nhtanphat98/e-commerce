@@ -19,7 +19,7 @@ export class OrderService {
       createOrderRequestDto.createOrderDto,
     );
     createOrderRequestDto.createOrderDetailDto.forEach((createOrderDetail) => {
-      createOrderDetail.order_id = order.id;
+      createOrderDetail.orderId = order.id;
     });
     await this.orderDetailRepository.save(
       createOrderRequestDto.createOrderDetailDto,

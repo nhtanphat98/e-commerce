@@ -1,5 +1,5 @@
 import { Category } from 'src/categories/entities/category.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'product' })
 export class Product {
@@ -12,7 +12,7 @@ export class Product {
   @Column()
   quantity: number;
   @Column({ nullable: true })
-  category_id: number;
+  categoryId: number;
   @Column()
   price: number;
   @Column({ nullable: true })
@@ -26,4 +26,14 @@ export class Product {
 
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  updateStatus() {
+    if (this.quantity > 0) {
+      this.status = 'available';
+    } else {
+      this.status = 'out of stock';
+    }
+  }
 }
